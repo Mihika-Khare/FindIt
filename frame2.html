@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FindIt - How It Works</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 17px 0;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        /* Main Container */
+
+        .main-container {
+            width: 94%;
+            max-width: 900px;
+            min-height: 640px;
+            margin: auto;
+            background-color: #fbf6df;
+            padding: 0 5px 15px;
+        }
+
+        /* Navigation Bar */
+
+        .navbar-custom {
+            height: 71px;
+            border-bottom: 1px solid #777;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .logo {
+            font-family: Arial, sans-serif;
+            font-size: 62px;
+            font-weight: 900;
+            letter-spacing: -5px;
+            color: black;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 23px;
+            white-space: nowrap;
+        }
+
+        .nav-links .active {
+            background-color: #1710b9;
+            color: white;
+            padding: 0 12px;
+            border-radius: 25px;
+        }
+
+        /* Orange Tagline */
+
+        .tagline {
+            width: 53%;
+            height: 43px;
+            background-color: #ff9f12;
+            border-radius: 17px;
+            margin: 19px auto 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 24px;
+            color: black;
+        }
+
+        /* Main Heading */
+
+        .heading-section {
+            text-align: center;
+            margin-top: 33px;
+        }
+
+        .heading-section h1 {
+            font-size: 40px;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .heading-section h1 span {
+            font-family: Arial, sans-serif;
+            font-weight: 900;
+            font-size: 55px;
+            letter-spacing: -4px;
+        }
+
+        .heading-section p {
+            font-size: 21px;
+            color: #897d7a;
+            margin: 0;
+        }
+
+        /* Three Steps Section */
+
+        .steps-section {
+            display: flex;
+            justify-content: space-around;
+            gap: 35px;
+            margin: 49px 22px 0;
+        }
+
+        .step-card {
+            width: 31%;
+            height: 127px;
+            background-color: white;
+            border-radius: 17px;
+            display: flex;
+            align-items: flex-start;
+            padding: 7px 11px;
+            gap: 24px;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 43px;
+            flex-shrink: 0;
+            background-color: #f5868b;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .step-text {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 1000;
+            line-height: 1.5;
+            color: black;
+            padding-top: 1px;
+        }
+
+        /* FAQ Section */
+
+        .faq-section {
+            margin: 29px 21px 0;
+        }
+
+        .faq-section h2 {
+            font-family: Arial, sans-serif;
+            color: #2911bd;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        /* FAQ Question */
+
+        .faq-question {
+            width: 100%;
+            min-height: 36px;
+            background-color: #a8c9e9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 13px 5px 20px;
+            color: black;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            min-height: 36px;
+            background-color: #eeeedf;
+            color: #897d7a;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            padding: 4px 10px;
+        }
+
+        .faq-second {
+            margin-top: 19px;
+        }
+
+        /* Responsive Design */
+
+        @media (max-width: 768px) {
+
+            .main-container {
+                min-height: 100vh;
+            }
+
+            .navbar-custom {
+                height: auto;
+                flex-direction: column;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 48px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+
+            .tagline {
+                width: 90%;
+                font-size: 18px;
+            }
+
+            .heading-section h1 {
+                font-size: 30px;
+            }
+
+            .heading-section h1 span {
+                font-size: 40px;
+            }
+
+            .heading-section p {
+                font-size: 16px;
+            }
+
+            .steps-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .step-card {
+                width: 90%;
+                height: 110px;
+            }
+
+            .faq-section {
+                margin: 25px 10px;
+            }
+
+            .faq-section h2 {
+                font-size: 23px;
+            }
+
+            .faq-question,
+            .faq-answer {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Container -->
+
+    <div class="main-container">
+
+        <!-- Navigation Bar -->
+
+        <nav class="navbar-custom">
+
+            <div class="logo">
+                Findit
+            </div>
+
+            <div class="nav-links">
+
+                <a href="frame1.html">Home</a>
+
+                <a href="frame7.html">Browse items</a>
+
+                <a href="frame8.html">Campus Map</a>
+
+                <a href="frame2.html" class="active">How it works</a>
+
+                <a href="frame9.html">My Portal</a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Tagline -->
+
+        <div class="tagline">
+
+            <span>◆</span>
+
+            <span>Simple, Secure, Student First</span>
+
+            <span>◆</span>
+
+        </div>
+
+
+        <!-- Main Heading -->
+
+        <div class="heading-section">
+
+            <h1>
+                How <span>Findit</span> Works
+            </h1>
+
+            <p>
+                Protect your belonging from false claim and creates a path for your lost item to reach you
+            </p>
+
+        </div>
+
+
+        <!-- Three Steps -->
+
+        <div class="steps-section">
+
+
+            <!-- Step 1 -->
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    1.
+                </div>
+
+                <div class="step-text">
+                    REPORT<br>
+                    AND GET A<br>
+                    TRACKING<br>
+                    ID
+                </div>
+
+            </div>
+
+
+            <!-- Step 2 -->
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    2.
+                </div>
+
+                <div class="step-text">
+                    HIDDEN<br>
+                    VERIFICATION<br>
+                    DETAILS
+                </div>
+
+            </div>
+
+
+            <!-- Step 3 -->
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    3.
+                </div>
+
+                <div class="step-text">
+                    SAFE<br>
+                    CAMPUS<br>
+                    HANDOFF
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Frequently Asked Questions -->
+
+        <div class="faq-section">
+
+            <h2>
+                Frequently Asked Question
+            </h2>
+
+
+            <!-- First Question -->
+
+            <div class="faq-question">
+
+                <span>
+                    1. Why are some details hidden on Browse Items?
+                </span>
+
+                <span>⌃</span>
+
+            </div>
+
+
+            <!-- First Answer -->
+
+            <div class="faq-answer">
+
+                To prevent from fake claims. Only the true owner can answer the verification prompt.
+
+            </div>
+
+
+            <!-- Second Question -->
+
+            <div class="faq-question faq-second">
+
+                <span>
+                    2. Do I need to enter my collage email ID to claim items?
+                </span>
+
+                <span>⌄</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

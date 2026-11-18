@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FindIt - Browse Items</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 35px 0;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .main-container {
+            width: 92%;
+            max-width: 900px;
+            margin: auto;
+            background-color: #fbf6df;
+            padding: 0 5px;
+            min-height: 640px;
+        }
+
+        /* Navigation Bar */
+
+        .navbar-custom {
+            height: 60px;
+            border-bottom: 1px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .logo {
+            font-family: Arial, sans-serif;
+            font-size: 62px;
+            font-weight: 900;
+            letter-spacing: -5px;
+            color: black;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 23px;
+            white-space: nowrap;
+        }
+
+        .nav-links .active {
+            background-color: #1710b9;
+            color: white;
+            border-radius: 25px;
+            padding: 0 10px;
+        }
+
+        /* Page Heading */
+
+        .heading-section {
+            padding: 15px 8px 8px;
+        }
+
+        .page-title {
+            color: #12518c;
+            font-size: 40px;
+            font-weight: normal;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .page-subtitle {
+            color: black;
+            font-size: 22px;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* Search and Filter Section */
+
+        .filter-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px 3px 5px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 20px;
+        }
+
+        .filter-box {
+            flex: 1;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .filter-box label {
+            display: block;
+            font-size: 24px;
+            color: black;
+            margin-bottom: 3px;
+        }
+
+        .filter-box input,
+        .filter-box select {
+            width: 100%;
+            height: 34px;
+            border: none;
+            background-color: #dcdcdc;
+            color: black;
+            font-family: Georgia, serif;
+            font-size: 20px;
+            padding: 2px 10px;
+        }
+
+        /* Item Cards */
+
+        .items-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .item-card {
+            width: 33.33%;
+            background-color: white;
+            position: relative;
+            min-height: 369px;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 187px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-content {
+            padding: 10px 0 8px;
+        }
+
+        .item-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            color: black;
+            white-space: nowrap;
+            gap: 5px;
+        }
+
+        .item-info span {
+            display: flex;
+            align-items: center;
+        }
+
+        .item-title {
+            color: #12518c;
+            font-size: 27px;
+            font-weight: normal;
+            line-height: 1.15;
+            margin: 2px 0 0;
+        }
+
+        .item-description {
+            color: black;
+            font-size: 22px;
+            line-height: 1.25;
+            margin: 0;
+        }
+
+        /* Claim Button */
+
+        .claim-btn {
+            background-color: #f78b50;
+            color: black;
+            border: none;
+            border-radius: 16px;
+            font-family: Georgia, serif;
+            font-size: 20px;
+            padding: 5px 14px;
+            position: absolute;
+            bottom: 3px;
+            right: 16px;
+        }
+
+        /* Responsive Design */
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 10px 0;
+            }
+
+            .navbar-custom {
+                height: auto;
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 48px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 17px;
+            }
+
+            .page-title {
+                font-size: 30px;
+            }
+
+            .page-subtitle {
+                font-size: 17px;
+            }
+
+            .filter-section {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .filter-box {
+                flex: 1 1 40%;
+            }
+
+            .filter-box label {
+                font-size: 18px;
+            }
+
+            .filter-box input,
+            .filter-box select {
+                font-size: 15px;
+            }
+
+            .items-section {
+                flex-wrap: wrap;
+            }
+
+            .item-card {
+                width: 48%;
+                min-height: 370px;
+            }
+
+            .item-info {
+                font-size: 15px;
+            }
+
+            .item-title {
+                font-size: 22px;
+            }
+
+            .item-description {
+                font-size: 18px;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .item-card {
+                width: 100%;
+            }
+
+            .filter-box {
+                flex: 1 1 100%;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <!-- Navigation Bar -->
+
+        <nav class="navbar-custom">
+
+            <div class="logo">
+                Findit
+            </div>
+
+            <div class="nav-links">
+
+                <a href="frame1.html">Home</a>
+
+                <a href="frame7.html" class="active">Browse items</a>
+
+                <a href="frame8.html">How it works</a>
+
+                <a href="frame2.html">Campus map</a>
+
+                <a href="frame9.html">My portal</a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Page Heading -->
+
+        <section class="heading-section">
+
+            <h1 class="page-title">
+                Browse Lost and found Items
+            </h1>
+
+            <p class="page-subtitle">
+                Every listing has unique tracking id and protected verification details
+            </p>
+
+        </section>
+
+
+        <!-- Search and Filter Section -->
+
+        <section class="filter-section">
+
+            <div class="filter-box">
+
+                <label>Keyword or tracking id</label>
+
+                <input type="text"
+                       placeholder="Search title,description">
+
+            </div>
+
+
+            <div class="filter-box">
+
+                <label>Status</label>
+
+                <select>
+                    <option>All Statuses</option>
+                    <option>Lost</option>
+                    <option>Found</option>
+                </select>
+
+            </div>
+
+
+            <div class="filter-box">
+
+                <label>Category</label>
+
+                <select>
+                    <option>All Categories</option>
+                    <option>Electronics</option>
+                    <option>Stationery</option>
+                    <option>Keys and ID</option>
+                </select>
+
+            </div>
+
+
+            <div class="filter-box">
+
+                <label>Location</label>
+
+                <select>
+                    <option>All Location</option>
+                    <option>Main Library</option>
+                    <option>Digital Tower</option>
+                    <option>Canteen</option>
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- Items Display Section -->
+
+        <section class="items-section">
+
+
+            <!-- First Item Card -->
+
+            <div class="item-card">
+
+                <img src="laptop.jpg"
+                     class="item-image"
+                     alt="Silver Aluminium Laptop">
+
+                <div class="item-content">
+
+                    <div class="item-info">
+
+                        <span>◇ Electronics</span>
+
+                        <span>📍Main Library</span>
+
+                    </div>
+
+                    <h2 class="item-title">
+                        Silver Aluminum<br>
+                        Laptop
+                    </h2>
+
+                    <p class="item-description">
+                        Found on study table on the 3rd floor
+                    </p>
+
+                </div>
+
+                <button class="claim-btn">
+                    <a href="frame10.html">Claim</a>
+                </button>
+
+            </div>
+
+
+            <!-- Second Item Card -->
+
+            <div class="item-card">
+
+                <img src="Scientific-Calculator-SC-417.jpg"
+                     class="item-image"
+                     alt="Scientific Calculator">
+
+                <div class="item-content">
+
+                    <div class="item-info">
+
+                        <span>◇ stationary</span>
+
+                        <span>📍digital tower</span>
+
+                    </div>
+
+                    <h2 class="item-title">
+                        Scientific Calculator
+                    </h2>
+
+                    <p class="item-description">
+                        Found in Room 112.
+                    </p>
+
+                </div>
+
+                <button class="claim-btn">
+                    <a href="frame10.html">Claim</a>
+                </button>
+
+            </div>
+
+
+            <!-- Third Item Card -->
+
+            <div class="item-card">
+
+                <img src="keys.jpg"
+                     class="item-image"
+                     alt="Set of Keys">
+
+                <div class="item-content">
+
+                    <div class="item-info">
+
+                        <span>◇ Keys and ID</span>
+
+                        <span>📍 Canteen</span>
+
+                    </div>
+
+                    <h2 class="item-title">
+                        Set of 3 Keys
+                    </h2>
+
+                    <p class="item-description">
+                        Found near the coffee counter
+                    </p>
+
+                </div>
+
+                <button class="claim-btn">
+                    <a href="frame10.html">Claim</a>
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+</html>

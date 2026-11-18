@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FindIt - Interactive Campus Map</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 35px 0;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .main-container {
+            width: 94%;
+            max-width: 900px;
+            margin: auto;
+            background-color: #fbf6df;
+            padding: 0 6px;
+            min-height: 640px;
+        }
+
+        /* Navbar */
+
+        .navbar-custom {
+            height: 69px;
+            margin: 0 0;
+            border-bottom: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .logo {
+            font-family: Arial, sans-serif;
+            font-size: 62px;
+            font-weight: 900;
+            letter-spacing: -5px;
+            color: black;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+            white-space: nowrap;
+        }
+
+        .nav-links .active {
+            background-color: #1710b9;
+            color: white;
+            padding: 0 10px;
+            border-radius: 25px;
+        }
+
+        /* Main Heading Section */
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 4px 18px;
+        }
+
+        .heading-section {
+            width: 55%;
+            text-align: center;
+        }
+
+        .main-heading {
+            color: #2118bd;
+            font-family: Arial, sans-serif;
+            font-size: 58px;
+            font-weight: 500;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .sub-heading {
+            color: #414141;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.05;
+            margin: -4px 0 0;
+        }
+
+        /* Report Buttons Section */
+
+        .report-section {
+            width: 43%;
+            text-align: center;
+        }
+
+        .location-button {
+            background-color: #e5c20d;
+            color: black;
+            width: 75%;
+            min-height: 60px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            margin-left: auto;
+            font-family: Arial, sans-serif;
+            font-size: 23px;
+            font-weight: bold;
+            line-height: 1.1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .location-icon {
+            width: 29px;
+            height: 29px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: #d4b20b;
+            position: absolute;
+            left: 3px;
+            top: 0;
+        }
+
+        .location-icon::after {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 32px;
+            background-color: black;
+            top: 26px;
+            left: 13px;
+        }
+
+        .report-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .report-buttons button {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            font-weight: bold;
+            border-radius: 17px;
+            padding: 3px 12px;
+            white-space: nowrap;
+        }
+
+        .lost-btn {
+            background-color: #405cc7;
+            color: white;
+            border: 1px solid #172b88;
+        }
+
+        .found-btn {
+            background-color: #ff9d0b;
+            color: black;
+            border: none;
+        }
+
+        /* Campus Map and Selected Zone */
+
+        .content-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 68px;
+            padding: 0 8px 0 2px;
+        }
+
+        /* Building Selection Area */
+
+        .building-section {
+            width: 60%;
+            height: 350px;
+            background-color: #f0eacb;
+            border-radius: 35px;
+            padding: 10px 12px;
+        }
+
+        .building-title {
+            text-align: right;
+            font-family: Arial, sans-serif;
+            color: #444;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 5px 20px 0;
+        }
+
+        .building-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 63px 32px;
+            padding: 0 0;
+        }
+
+        .building {
+            height: 104px;
+            background-color: white;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.05;
+            color: black;
+        }
+
+        .building.active {
+            background-color: #1710b9;
+            color: white;
+        }
+
+        /* Selected Zone Panel */
+
+        .selected-panel {
+            width: 34%;
+            min-height: 350px;
+            background-color: white;
+            border: 2px solid #71829f;
+            text-align: center;
+        }
+
+        .selected-title {
+            color: #5148dc;
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 10px 0 0;
+        }
+
+        .selected-building {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .desk-info {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.05;
+            margin: 0 5px 8px;
+        }
+
+        .items-heading {
+            border-top: 2px dashed black;
+            font-family: Arial, sans-serif;
+            font-size: 21px;
+            font-weight: bold;
+            text-align: left;
+            padding: 3px 12px;
+            margin: 0;
+        }
+
+        /* Reported Item Card */
+
+        .item-card {
+            background-color: #fbf6df;
+            border-radius: 22px;
+            margin: 27px 14px 0;
+            padding: 10px 8px 8px;
+            font-family: Arial, sans-serif;
+        }
+
+        .item-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .item-name {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.1;
+            color: black;
+        }
+
+        .verify-btn {
+            background-color: #e5c20d;
+            color: black;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 8px 13px;
+        }
+
+        .item-id {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 23px;
+            color: black;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 10px 0;
+            }
+
+            .navbar-custom {
+                height: auto;
+                flex-direction: column;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 48px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 17px;
+            }
+
+            .top-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .heading-section,
+            .report-section {
+                width: 100%;
+            }
+
+            .main-heading {
+                font-size: 42px;
+            }
+
+            .sub-heading {
+                font-size: 18px;
+            }
+
+            .location-button {
+                width: 85%;
+                margin: auto auto 15px;
+                font-size: 19px;
+            }
+
+            .report-buttons {
+                flex-wrap: wrap;
+            }
+
+            .report-buttons button {
+                font-size: 17px;
+            }
+
+            .content-section {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0;
+            }
+
+            .building-section {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+            }
+
+            .building-grid {
+                gap: 15px;
+            }
+
+            .building {
+                height: 90px;
+                font-size: 17px;
+            }
+
+            .selected-panel {
+                width: 100%;
+                min-height: 350px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <!-- Navigation Bar -->
+
+        <nav class="navbar-custom">
+
+            <div class="logo">
+                Findit
+            </div>
+
+            <div class="nav-links">
+
+                <a href="frame1.html">Home</a>
+
+                <a href="frame7.html">Browse items</a>
+
+                <a href="frame8.html" class="active">Campus Map</a>
+
+                <a href="frame2.html">How it works</a>
+
+                <a href="frame4.html">My Portal</a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Heading and Report Section -->
+
+        <section class="top-section">
+
+            <div class="heading-section">
+
+                <h1 class="main-heading">
+                    Interactive<br>
+                    Campus Map
+                </h1>
+
+                <p class="sub-heading">
+                    Select any campus building or zone to<br>
+                    inspect reported items and drop-off desk<br>
+                    hours.
+                </p>
+
+            </div>
+
+
+            <div class="report-section">
+
+                <div class="location-button">
+
+                    <div class="location-icon"></div>
+
+                    Report an Item at<br> Location
+
+                </div>
+
+                <div class="report-buttons">
+
+                    <button class="lost-btn">
+                        <a href="frame5.html">Report Found</a>
+                    </button>
+
+                    <button class="found-btn">
+                        <a href="frame6.html">Report Lost</a>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Campus Buildings and Selected Zone -->
+
+        <section class="content-section">
+
+
+            <!-- Building Selection -->
+
+            <div class="building-section">
+
+                <p class="building-title">
+                    Click a building to filter
+                </p>
+
+                <div class="building-grid">
+
+                    <div class="building active">
+                        Main<br> Library
+                    </div>
+
+                    <div class="building">
+                        Digital<br> Tower
+                    </div>
+
+                    <div class="building">
+                        ECS<br> Building
+                    </div>
+
+                    <div class="building">
+                        Managem<br>ent Block
+                    </div>
+
+                    <div class="building">
+                        G-Block
+                    </div>
+
+                    <div class="building">
+                        Civil engg<br>block
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Selected Zone Details -->
+
+            <div class="selected-panel">
+
+                <h3 class="selected-title">
+                    Selected Zone
+                </h3>
+
+                <h2 class="selected-building">
+                    Main Library
+                </h2>
+
+                <p class="desk-info">
+                    Drop-off Desk: 1st Floor<br>
+                    Security Desk (Open 7:30 AM -<br>
+                    11:00 PM)
+                </p>
+
+
+                <h3 class="items-heading">
+                    Items reported here
+                </h3>
+
+
+                <!-- Reported Item -->
+
+                <div class="item-card">
+
+                    <div class="item-details">
+
+                        <div class="item-name">
+                            Silver Aluminium<br>
+                            Laptop (14 inch)
+                        </div>
+
+                        <button class="verify-btn">
+                            <a href="frame10.html">Verify</a>
+                        </button>
+
+                    </div>
+
+                    <p class="item-id">
+                        FND-2026-1042
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+</html>
